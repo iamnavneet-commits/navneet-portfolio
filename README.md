@@ -4,6 +4,9 @@ Personal site for Navneet Shende, Technical Account Manager and Customer Success
 A single static page built with Next.js 16 (App Router), TypeScript and Tailwind CSS v4. No backend, no
 tracking, no secrets.
 
+**Live site:** https://iamnavneet-commits.github.io/navneet-portfolio/ (GitHub Pages, deployed automatically
+from `main`).
+
 ## Run it
 
 Requires Node.js 20.9 or newer.
@@ -15,13 +18,14 @@ npm run dev        # http://localhost:3000
 
 Other scripts:
 
-| Command             | What it does                                     |
-| ------------------- | ------------------------------------------------ |
-| `npm run build`     | Production build (the page prerenders as static) |
-| `npm run start`     | Serve the production build                       |
-| `npm run typecheck` | `next typegen` then `tsc --noEmit`               |
-| `npm run lint`      | ESLint (Next.js core-web-vitals + TypeScript)    |
-| `npm run check`     | Typecheck, lint and build in one go              |
+| Command                 | What it does                                                            |
+| ----------------------- | ----------------------------------------------------------------------- |
+| `npm run build`         | Static export into `out/`                                               |
+| `npm run preview`       | Serve `out/` at http://localhost:3100                                   |
+| `npm run preview:pages` | Build with the GitHub Pages sub-path and serve it at `/navneet-portfolio/` |
+| `npm run typecheck`     | `next typegen` then `tsc --noEmit`                                      |
+| `npm run lint`          | ESLint (Next.js core-web-vitals + TypeScript)                           |
+| `npm run check`         | Typecheck, lint and build in one go                                     |
 
 > Dev note: in this setup, edits to `src/app/globals.css` were not always hot-reloaded by `next dev`.
 > If a CSS change doesn't show up, restart the dev server. Component and content edits reload normally.
@@ -34,7 +38,7 @@ src/components/            One component per section (Hero, LogoMarquee, About, 
 src/app/layout.tsx         Fonts, metadata, Open Graph defaults
 src/app/page.tsx           Section order and JSON-LD (Person)
 src/app/globals.css        Design tokens ("Signal & Trust"), type scale, marquee and trace styles
-src/app/opengraph-image.tsx  Generates the 1200×630 social card from the hero photo
+src/app/opengraph-image.jpg  1200×630 social-share card (static file, see below)
 src/app/icon.svg           Favicon
 public/images/             Photographs
 public/logos/              Organization logos (local copies)
@@ -50,7 +54,11 @@ public/logos/              Organization logos (local copies)
      different shot from the hero).
   2. In `src/content/profile.ts`, set `aboutPhoto: "/images/navneet-about.jpg"`.
 
-Next.js serves resized, modern-format versions automatically; you don't need to pre-optimize.
+Because the site is a static export, images are served as-is (no on-the-fly resizing), so keep photos
+reasonably sized: about 1200–1600px on the long edge, under ~300 KB.
+
+**Social-share card:** `src/app/opengraph-image.jpg` is a static image showing the headline and hero photo.
+If you change either, replace this file with a new 1200×630 image.
 
 ## Logos
 
@@ -71,18 +79,25 @@ All logos are stored locally and shown in monochrome, with original colours on h
 These are trademarks of their owners. The site labels them as "employers, client accounts and enterprise
 customers I've worked for or supported" and doesn't claim endorsement.
 
-## Deploy (Vercel)
+## Deploy
 
-The site has not been deployed yet.
+### GitHub Pages (current)
 
-1. Put the project in a Git repository and push it to GitHub, GitLab or Bitbucket.
-2. In Vercel, choose **Add New → Project**, import the repository and keep the detected Next.js settings.
-3. Optional but recommended once you have a domain: add the environment variable
-   `NEXT_PUBLIC_SITE_URL=https://your-domain.com`. This sets absolute Open Graph URLs and the canonical
-   link. Without it, Vercel's production URL is used automatically.
-4. Deploy.
+Every push to `main` runs `.github/workflows/deploy-pages.yml`, which lints, builds the static export and
+publishes it to https://iamnavneet-commits.github.io/navneet-portfolio/. Progress shows under the
+repository's **Actions** tab. You can also run it by hand there with **Run workflow**.
 
-Any host that runs `next build` / `next start` (Netlify, Render, a Node server) also works.
+The site is served under the `/navneet-portfolio` sub-path. The workflow passes it in as `PAGES_BASE_PATH`,
+along with `NEXT_PUBLIC_SITE_URL` for share links. Any image that points into `/public` must go through
+`withBasePath()` from `src/lib/paths.ts`, because `next/image` doesn't add the sub-path on its own.
+
+One-time setup (already done): **Settings → Pages → Source: GitHub Actions**. On a free GitHub plan,
+Pages requires the repository to be public.
+
+### Other static hosts (Vercel, Netlify, Cloudflare Pages)
+
+Use `npm run build` as the build command and `out` as the output directory. Set
+`NEXT_PUBLIC_SITE_URL=https://your-domain.com` so share links and the canonical URL use your domain.
 
 ## Content rules
 

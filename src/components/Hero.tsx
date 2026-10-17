@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { hero, person } from "@/content/profile";
+import { withBasePath } from "@/lib/paths";
 
 export function Hero() {
   return (
@@ -25,7 +26,7 @@ export function Hero() {
             <CornerMarks />
             <div className="enter-photo relative aspect-[4/5] overflow-hidden rounded-[3px] bg-paper-deep">
               <Image
-                src={person.heroPhoto}
+                src={withBasePath(person.heroPhoto)}
                 alt="Navneet Shende, portrait in a white shirt against a grey studio background"
                 fill
                 preload

@@ -1,17 +1,11 @@
-import { cacheLife } from "next/cache";
 import { contact, person } from "@/content/profile";
 import { CopyEmail } from "./CopyEmail";
 import { CurrentYear } from "./CurrentYear";
 import { SignalMark } from "./SignalMark";
 
-async function buildYear() {
-  "use cache";
-  cacheLife("max");
-  return new Date().getFullYear();
-}
-
-export async function Contact() {
-  const year = await buildYear();
+export function Contact() {
+  // Baked in at build time; CurrentYear swaps in the visitor's year after hydration.
+  const year = new Date().getFullYear();
 
   return (
     <div className="on-night bg-night text-night-text">

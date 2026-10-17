@@ -24,22 +24,27 @@ const newsreader = Newsreader({
 });
 
 /**
- * Set NEXT_PUBLIC_SITE_URL once the site has a domain. On Vercel the
- * production URL is picked up automatically; locally it falls back to
- * localhost so Open Graph URLs still resolve.
+ * The public URL of the site, including any sub-path (on GitHub Pages:
+ * https://iamnavneet-commits.github.io/navneet-portfolio). The deploy
+ * workflow sets NEXT_PUBLIC_SITE_URL; locally it falls back to localhost.
  */
-const siteUrl =
+const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL
     ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000");
+    : "http://localhost:3000")
+).replace(/\/$/, "");
+
+// Next.js adds basePath to file-based metadata images itself, so the base is the origin only.
+const metadataBase = new URL(new URL(siteUrl).origin);
+const pageUrl = `${siteUrl}/`;
 
 const title = `${person.name}, Technical Account Manager and Customer Success Engineer`;
 const description =
   "Technical Account Manager in Dubai. Production troubleshooting, root-cause analysis, API and SDK integrations, and incident ownership for enterprise customers.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase,
   title,
   description,
   applicationName: person.name,
@@ -61,6 +66,7 @@ export const metadata: Metadata = {
     title,
     description,
     siteName: person.name,
+    url: pageUrl,
     locale: "en_US",
     firstName: "Navneet",
     lastName: "Shende",
@@ -70,7 +76,7 @@ export const metadata: Metadata = {
     title,
     description,
   },
-  ...(process.env.NEXT_PUBLIC_SITE_URL ? { alternates: { canonical: "/" } } : {}),
+  ...(process.env.NEXT_PUBLIC_SITE_URL ? { alternates: { canonical: pageUrl } } : {}),
 };
 
 export const viewport: Viewport = {

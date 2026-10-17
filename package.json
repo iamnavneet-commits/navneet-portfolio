@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "preview": "node scripts/serve.mjs",
     "lint": "eslint .",
     "typecheck": "next typegen && tsc --noEmit",
-    "check": "npm run typecheck && npm run lint && npm run build"
+    "check": "npm run typecheck && npm run lint && npm run build",
+    "preview:pages": "PAGES_BASE_PATH=/navneet-portfolio next build && node scripts/serve.mjs --base /navneet-portfolio"
   },
   "dependencies": {
     "next": "16.4.2",

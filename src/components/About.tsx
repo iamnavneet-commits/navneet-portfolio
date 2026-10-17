@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { about, person, roles } from "@/content/profile";
+import { withBasePath } from "@/lib/paths";
 
 export function About() {
   return (
@@ -40,7 +41,7 @@ function AboutPhoto({ src }: { src: string }) {
   return (
     <div className="relative aspect-[4/5] w-full max-w-[28rem] overflow-hidden rounded-[3px] bg-paper-deep">
       <Image
-        src={src}
+        src={withBasePath(src)}
         alt="Navneet Shende"
         fill
         sizes="(min-width: 1024px) 34vw, 90vw"

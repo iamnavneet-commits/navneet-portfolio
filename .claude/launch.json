@@ -11,16 +11,25 @@
       "port": 3000
     },
     {
-      "name": "portfolio-prod",
+      "name": "portfolio-static",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run",
-        "start",
-        "--",
-        "-p",
-        "3100"
+        "preview"
       ],
       "port": 3100
+    },
+    {
+      "name": "pages-basepath-test",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/serve.mjs",
+        "--base",
+        "/navneet-portfolio",
+        "--port",
+        "4100"
+      ],
+      "port": 4100
     }
   ]
 }

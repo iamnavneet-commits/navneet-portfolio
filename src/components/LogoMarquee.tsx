@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { logos } from "@/content/profile";
+import { withBasePath } from "@/lib/paths";
 
 /**
  * Four identical sets in one track, animated by -50%. Two sets are always
@@ -60,7 +61,7 @@ export function LogoMarquee() {
               {logos.map((logo) => (
                 <li key={logo.name} className="marquee-item flex h-16 shrink-0 items-center px-8 md:px-12">
                   <Image
-                    src={logo.src}
+                    src={withBasePath(logo.src)}
                     alt={copy === 0 ? logo.name : ""}
                     width={Math.round(logo.height * logo.ratio)}
                     height={logo.height}
