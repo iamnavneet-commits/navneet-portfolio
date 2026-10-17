@@ -1,0 +1,394 @@
+@import "tailwindcss";
+
+/* Desktop widths on laptop-height screens (most 13–15" viewports are 750–900px tall). */
+@custom-variant short (@media (min-width: 1024px) and (max-height: 940px));
+
+/*
+ * Signal & Trust
+ * Paper, midnight ink and one electric-cobalt signal colour.
+ * Cobalt is reserved for things that carry meaning: links, active
+ * states, measured results and the investigation trace.
+ */
+:root {
+  --paper: #f5f4f0;
+  --paper-deep: #ebe9e2;
+  --ink: #101b2e;
+  --ink-soft: #485266;
+  --ink-muted: #5f6879;
+  --rule: #d6d4cc;
+  --rule-strong: #b9b7ae;
+  --cobalt: #2442e0;
+  --cobalt-deep: #1a32b5;
+  --cobalt-wash: #e1e6fb;
+  --night: #0f1a30;
+  --night-raised: #1a2742;
+  --night-rule: #2e3b58;
+  --night-text: #e9ebf1;
+  --night-soft: #a9b1c4;
+  --cobalt-on-night: #93a6ff;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-muted: var(--ink-muted);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-deep: var(--cobalt-deep);
+  --color-cobalt-wash: var(--cobalt-wash);
+  --color-night: var(--night);
+  --color-night-raised: var(--night-raised);
+  --color-night-rule: var(--night-rule);
+  --color-night-text: var(--night-text);
+  --color-night-soft: var(--night-soft);
+  --color-cobalt-on-night: var(--cobalt-on-night);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "SFMono-Regular", "Cascadia Code", Menlo, monospace;
+  --font-serif: var(--font-newsreader), "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+}
+
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--ink);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--cobalt);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cobalt);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-night :focus-visible {
+    outline-color: var(--cobalt-on-night);
+  }
+
+  [id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Display type: Newsreader at large optical sizes, set tight. */
+  .type-display {
+    font-family: var(--font-serif);
+    font-weight: 380;
+    font-variation-settings: "opsz" 72;
+    font-size: clamp(2.5rem, 1.6rem + 3.4vw, 4.6rem);
+    line-height: 1.02;
+    letter-spacing: -0.022em;
+  }
+
+  .type-section {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-variation-settings: "opsz" 60;
+    font-size: clamp(2rem, 1.45rem + 2.2vw, 3.3rem);
+    line-height: 1.05;
+    letter-spacing: -0.018em;
+  }
+
+  .type-title {
+    font-family: var(--font-serif);
+    font-weight: 420;
+    font-variation-settings: "opsz" 36;
+    font-size: clamp(1.45rem, 1.2rem + 0.9vw, 1.95rem);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+  }
+
+  .type-figure {
+    font-family: var(--font-serif);
+    font-weight: 360;
+    font-variation-settings: "opsz" 72;
+    font-variant-numeric: lining-nums tabular-nums;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+  }
+
+  .type-annotation {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.45;
+    letter-spacing: 0;
+  }
+
+  .link {
+    color: var(--cobalt);
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-color: color-mix(in srgb, var(--cobalt) 40%, transparent);
+    transition: text-decoration-color 160ms ease;
+  }
+  .link:hover {
+    text-decoration-color: currentColor;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0 1.35rem;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 0.98rem;
+    transition:
+      background-color 160ms ease,
+      color 160ms ease,
+      border-color 160ms ease;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .btn-primary:hover {
+    background: var(--cobalt);
+  }
+  .btn-secondary {
+    border: 1px solid var(--ink);
+    color: var(--ink);
+  }
+  .btn-secondary:hover {
+    background: var(--ink);
+    color: var(--paper);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero entrance: one orchestrated sequence, CSS only, so it also     */
+/* works (and simply shows) without JavaScript.                       */
+/* ------------------------------------------------------------------ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes unveil {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes step-on {
+  from {
+    background-color: transparent;
+    border-color: var(--rule-strong);
+  }
+  to {
+    background-color: var(--cobalt);
+    border-color: var(--cobalt);
+  }
+}
+@keyframes step-text {
+  from {
+    color: var(--ink-muted);
+  }
+  to {
+    color: var(--ink);
+  }
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: var(--len, 1600);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: rise 900ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .enter-photo {
+    animation: unveil 1100ms cubic-bezier(0.65, 0, 0.2, 1) 200ms both;
+  }
+  .method-step .method-dot {
+    animation: step-on 260ms ease-out both;
+    animation-delay: calc(1100ms + var(--i) * 260ms);
+  }
+  .method-step .method-label {
+    animation: step-text 260ms ease-out both;
+    animation-delay: calc(1100ms + var(--i) * 260ms);
+  }
+  .signal-draw {
+    stroke-dasharray: var(--len, 1600);
+    animation: draw 2200ms cubic-bezier(0.45, 0, 0.2, 1) 500ms both;
+  }
+}
+
+/* Without the animation (reduced motion) the method steps sit in their final state. */
+.method-step .method-dot {
+  background-color: var(--cobalt);
+  border-color: var(--cobalt);
+}
+
+/* ------------------------------------------------------------------ */
+/* Logo marquee                                                        */
+/* ------------------------------------------------------------------ */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.marquee {
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 60s) linear infinite;
+}
+
+.marquee:hover .marquee-track,
+.marquee[data-paused="true"] .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-logo {
+  filter: grayscale(1) brightness(0.42) contrast(1.15);
+  opacity: 0.78;
+  transition:
+    filter 240ms ease,
+    opacity 240ms ease;
+}
+.marquee-item:hover .marquee-logo {
+  filter: none;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    mask-image: none;
+    scrollbar-width: thin;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  .marquee-copy {
+    display: none;
+  }
+  .marquee-item {
+    scroll-snap-align: start;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Delivery waffle                                                     */
+/* ------------------------------------------------------------------ */
+.waffle-cell {
+  background: var(--paper-deep);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  transition:
+    background-color 380ms ease,
+    box-shadow 380ms ease;
+  transition-delay: calc(var(--n) * 9ms);
+}
+.waffle-cell[data-on="true"] {
+  background: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.waffle-cell[data-on="true"][data-gain="true"] {
+  background: var(--cobalt);
+  box-shadow: inset 0 0 0 1px var(--cobalt);
+}
+@media (prefers-reduced-motion: reduce) {
+  .waffle-cell {
+    transition: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Case-study trace. The rail turns cobalt as each step is reached.    */
+/* Without JS every step is shown as reached.                         */
+/* ------------------------------------------------------------------ */
+.trace-step::before {
+  content: "";
+  position: absolute;
+  left: 0.4375rem;
+  top: 1.5rem;
+  bottom: -0.25rem;
+  width: 1px;
+  background: var(--cobalt);
+  transition: background-color 500ms ease;
+}
+.trace-step:last-child::before {
+  display: none;
+}
+.js .trace-step:not([data-reached="true"])::before {
+  background: var(--rule-strong);
+}
+.trace-marker {
+  transition:
+    border-color 400ms ease,
+    background-color 400ms ease;
+}
+.js .trace-step:not([data-reached="true"]) .trace-marker {
+  border-color: var(--rule-strong);
+}
+.js .trace-step:not([data-reached="true"]) .trace-marker[data-basis="record"] {
+  background: var(--rule-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
