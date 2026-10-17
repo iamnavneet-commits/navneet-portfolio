@@ -27,7 +27,7 @@ export function CaseTrace({ steps, caseId }: { steps: CaseStep[]; caseId: string
   }, []);
 
   return (
-    <ol ref={list} className="mt-12" aria-label="Investigation, step by step">
+    <ol ref={list} className="mt-4 pb-2" aria-label="Investigation, step by step">
       {steps.map((step, i) => (
         <li key={`${caseId}-${i}`} className="trace-step relative pb-9 pl-10 last:pb-0">
           <span

@@ -41,6 +41,7 @@ src/app/globals.css        Design tokens ("Signal & Trust"), type scale, marquee
 src/app/opengraph-image.jpg  1200×630 social-share card (static file, see below)
 src/app/icon.svg           Favicon
 public/images/             Photographs
+public/Navneet_Shende_CV.pdf  The CV behind every "Download CV" button. Replace it to update.
 public/logos/              Organization logos (local copies)
 ```
 
@@ -100,6 +101,11 @@ Use `npm run build` as the build command and `out` as the output directory. Set
 `NEXT_PUBLIC_SITE_URL=https://your-domain.com` so share links and the canonical URL use your domain.
 
 ## Content rules
+
+The site is written for Technical Account Manager, Solutions Engineer, Customer Success Manager and Customer
+Success Engineer roles (listed in `targetRoles` in `profile.ts`). Results are framed by the skill they prove
+(incident ownership, integration quality, data integrity, security, communication) rather than by the
+product domain, so they read the same to any hiring team.
 
 The content follows `Navneet_Shende_CSE.pdf`. Case-study steps are tagged in `profile.ts` as
 `basis: "record"` (stated in the CV) or `basis: "method"` (explanation of approach or context), and the

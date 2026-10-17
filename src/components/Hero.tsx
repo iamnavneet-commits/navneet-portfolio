@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { hero, person } from "@/content/profile";
 import { withBasePath } from "@/lib/paths";
+import { CvLink } from "./CvLink";
 
 export function Hero() {
   return (
@@ -58,6 +59,9 @@ export function Hero() {
           </div>
 
           <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[0.95rem]">
+            <li>
+              <CvLink variant="link" />
+            </li>
             <li>
               <a className="link" href={person.linkedin} target="_blank" rel="noopener noreferrer">
                 LinkedIn

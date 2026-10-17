@@ -331,31 +331,6 @@
 }
 
 /* ------------------------------------------------------------------ */
-/* Delivery waffle                                                     */
-/* ------------------------------------------------------------------ */
-.waffle-cell {
-  background: var(--paper-deep);
-  box-shadow: inset 0 0 0 1px var(--rule);
-  transition:
-    background-color 380ms ease,
-    box-shadow 380ms ease;
-  transition-delay: calc(var(--n) * 9ms);
-}
-.waffle-cell[data-on="true"] {
-  background: var(--ink);
-  box-shadow: inset 0 0 0 1px var(--ink);
-}
-.waffle-cell[data-on="true"][data-gain="true"] {
-  background: var(--cobalt);
-  box-shadow: inset 0 0 0 1px var(--cobalt);
-}
-@media (prefers-reduced-motion: reduce) {
-  .waffle-cell {
-    transition: none;
-  }
-}
-
-/* ------------------------------------------------------------------ */
 /* Case-study trace. The rail turns cobalt as each step is reached.    */
 /* Without JS every step is shown as reached.                         */
 /* ------------------------------------------------------------------ */

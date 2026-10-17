@@ -1,13 +1,11 @@
-"use client";
-
-import { useState } from "react";
 import { principles, principlesSource } from "@/content/profile";
 import { SectionHeading } from "./SectionHeading";
 
-type Filter = "all" | "evidenced";
-
+/**
+ * Compact grid: every principle name is visible at a glance, and each one
+ * opens (native <details>, no JS needed) to show how I apply it.
+ */
 export function Principles() {
-  const [filter, setFilter] = useState<Filter>("all");
   const evidenced = principles.filter((p) => p.evidence).length;
 
   return (
@@ -22,9 +20,8 @@ export function Principles() {
           }
         >
           <p>
-            Amazon’s sixteen Leadership Principles are a useful lens on technical customer work. These are my own
-            readings of them. Where the work on this page backs one up, I’ve linked it; the rest are standards I
-            hold myself to.
+            Amazon’s sixteen Leadership Principles, read through technical customer work. Open any of them to see
+            how I apply it.
           </p>
           <p className="mt-4 text-[0.85rem] text-ink-muted">
             Used as a personal framework only. It doesn’t imply employment by, affiliation with or endorsement from
@@ -36,61 +33,54 @@ export function Principles() {
           </p>
         </SectionHeading>
 
-        <div className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-ink pt-6">
-          <div role="group" aria-label="Filter principles" className="inline-flex rounded-full border border-rule-strong p-1">
-            {(
-              [
-                ["all", `All ${principles.length}`],
-                ["evidenced", `Linked to work here (${evidenced})`],
-              ] as const
-            ).map(([value, label]) => (
-              <button
-                key={value}
-                type="button"
-                aria-pressed={filter === value}
-                onClick={() => setFilter(value)}
-                className={`rounded-full px-4 py-1.5 text-[0.88rem] transition-colors ${
-                  filter === value ? "bg-ink text-paper" : "text-ink-soft hover:text-ink"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-          <p className="text-[0.85rem] text-ink-muted" aria-live="polite">
-            Showing {filter === "all" ? principles.length : evidenced} of {principles.length}
-          </p>
+        <div className="mt-12 flex flex-wrap gap-x-6 gap-y-2 border-t border-ink pt-5 text-[0.85rem] text-ink-soft">
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden className="size-2 rounded-full bg-cobalt" />
+            Linked to work on this page ({evidenced})
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <span aria-hidden className="size-2 rounded-full border border-ink-muted" />A standard I work to (
+            {principles.length - evidenced})
+          </span>
         </div>
 
-        <ol className="mt-2 grid gap-x-14 md:grid-cols-2">
-          {principles.map((p) => {
-            const hidden = filter === "evidenced" && !p.evidence;
-            return (
-              <li key={p.name} hidden={hidden} className="border-b border-rule py-7">
-                <h3 className="font-serif text-[1.45rem] leading-tight tracking-[-0.01em] [font-variation-settings:'opsz'_36]">
-                  {p.name}
-                </h3>
-                <p className="mt-2.5 max-w-[34rem] text-[0.98rem] text-ink-soft">{p.reading}</p>
-                <p className="mt-3 text-[0.85rem]">
-                  {p.evidence ? (
-                    <a className="link inline-flex items-center gap-2" href={p.evidence.href}>
-                      <span aria-hidden className="size-1.5 rounded-full bg-cobalt" />
-                      <span>
-                        <span className="sr-only">Evidence: </span>
-                        {p.evidence.label}
-                      </span>
+        <ul className="mt-4 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-4">
+          {principles.map((p) => (
+            <li key={p.name} className="border-b border-rule">
+              <details className="group py-4">
+                <summary className="flex cursor-pointer list-none items-start gap-3 [&::-webkit-details-marker]:hidden">
+                  <span
+                    aria-hidden
+                    className={`mt-[0.55rem] size-2 shrink-0 rounded-full ${p.evidence ? "bg-cobalt" : "border border-ink-muted"}`}
+                  />
+                  <span className="flex-1 font-serif text-[1.15rem] leading-snug tracking-[-0.005em] [font-variation-settings:'opsz'_24]">
+                    {p.name}
+                    <span className="sr-only">{p.evidence ? " (linked to work on this page)" : ""}</span>
+                  </span>
+                  <svg
+                    aria-hidden
+                    viewBox="0 0 12 12"
+                    className="mt-2 size-3 shrink-0 text-ink-muted transition-transform group-open:rotate-45"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                  >
+                    <path d="M6 1v10M1 6h10" />
+                  </svg>
+                </summary>
+                <div className="pb-1 pl-5 pt-2.5">
+                  <p className="text-[0.92rem] text-ink-soft">{p.reading}</p>
+                  {p.evidence && (
+                    <a className="link mt-2.5 inline-block text-[0.85rem]" href={p.evidence.href}>
+                      <span className="sr-only">Evidence: </span>
+                      {p.evidence.label}
                     </a>
-                  ) : (
-                    <span className="inline-flex items-center gap-2 text-ink-muted">
-                      <span aria-hidden className="size-1.5 rounded-full border border-ink-muted" />
-                      A standard I work to
-                    </span>
                   )}
-                </p>
-              </li>
-            );
-          })}
-        </ol>
+                </div>
+              </details>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

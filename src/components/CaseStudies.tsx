@@ -77,7 +77,29 @@ export function CaseStudies() {
 
               <div className="lg:col-span-7 lg:col-start-6">
                 <CaseDiagram kind={c.diagram} />
-                <CaseTrace steps={c.steps} caseId={c.id} />
+                {/* The full trace is one click away so the page stays scannable; native <details> works without JS. */}
+                <details className="group mt-6 border-t border-rule">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 py-4 [&::-webkit-details-marker]:hidden">
+                    <span className="font-medium">
+                      <span className="group-open:hidden">Read the investigation, step by step</span>
+                      <span className="hidden group-open:inline">Hide the investigation</span>
+                    </span>
+                    <span className="flex items-center gap-3 text-[0.85rem] text-ink-muted">
+                      {c.steps.length} steps
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 12 12"
+                        className="size-3 transition-transform group-open:rotate-45"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.4"
+                      >
+                        <path d="M6 1v10M1 6h10" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <CaseTrace steps={c.steps} caseId={c.id} />
+                </details>
               </div>
             </article>
           ))}

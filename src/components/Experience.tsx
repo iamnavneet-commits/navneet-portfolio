@@ -26,6 +26,24 @@ export function Experience() {
           </dl>
         </SectionHeading>
 
+        {/* Career path, oldest first: the progression a recruiter reads in one glance */}
+        <ol aria-label="Career path" className="mt-14 grid gap-4 sm:grid-cols-3 sm:gap-6">
+          {[...roles].reverse().map((role, i, all) => (
+            <li key={role.employer} className="relative border-t-2 border-ink pt-4">
+              <span
+                aria-hidden
+                className={`absolute -top-[7px] left-0 size-3 rounded-full ${i === all.length - 1 ? "bg-cobalt" : "bg-ink"}`}
+              />
+              <p className="text-[0.85rem] tabular-nums text-ink-muted">
+                {role.start.split(" ")[1]}
+                {i === all.length - 1 ? " onward" : ""}
+              </p>
+              <p className="mt-1 font-medium">{role.title}</p>
+              <p className="text-[0.92rem] text-ink-soft">{role.employer}</p>
+            </li>
+          ))}
+        </ol>
+
         <ol className="mt-16 md:mt-20">
           {roles.map((role, i) => (
             <li key={role.employer} className="grid gap-6 border-t border-ink py-12 md:grid-cols-12 md:gap-10">
@@ -59,7 +77,10 @@ export function Experience() {
                     </span>
                   ))}
                 </div>
-                <ul className="mt-7 max-w-[46rem] space-y-3">
+                <p className="mt-5 max-w-[42rem] font-serif text-[1.15rem] leading-relaxed [font-variation-settings:'opsz'_16]">
+                  {role.summary}
+                </p>
+                <ul className="mt-6 max-w-[46rem] space-y-3">
                   {role.points.map((point) => (
                     <li key={point} className="relative pl-5 text-[1rem] leading-[1.6]">
                       <span aria-hidden className="absolute left-0 top-[0.7em] h-px w-2.5 bg-ink-muted" />

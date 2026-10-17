@@ -8,6 +8,7 @@ import { Impact } from "@/components/Impact";
 import { LogoMarquee } from "@/components/LogoMarquee";
 import { Principles } from "@/components/Principles";
 import { SiteHeader } from "@/components/SiteHeader";
+import { TargetRoles } from "@/components/TargetRoles";
 import { Toolkit } from "@/components/Toolkit";
 import { person } from "@/content/profile";
 
@@ -18,6 +19,7 @@ const jsonLd = {
   name: person.name,
   jobTitle: person.role,
   email: `mailto:${person.email}`,
+  telephone: person.phone.replace(/\s/g, ""),
   sameAs: [person.linkedin],
   worksFor: { "@type": "Organization", name: "AppICE" },
   address: {
@@ -31,6 +33,8 @@ const jsonLd = {
   ],
   knowsAbout: [
     "Technical Account Management",
+    "Solutions Engineering",
+    "Customer Success Management",
     "Customer Success Engineering",
     "Incident Management",
     "Root-Cause Analysis",
@@ -50,6 +54,7 @@ export default function Home() {
       <SiteHeader />
       <main id="main">
         <Hero />
+        <TargetRoles />
         <LogoMarquee />
         <About />
         <Impact />

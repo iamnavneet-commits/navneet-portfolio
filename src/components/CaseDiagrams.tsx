@@ -121,7 +121,7 @@ function DuplicateRows() {
       caption="The failure class, simplified: two workers record the same piece of work, so every total built on the table is inflated. Not the platform’s actual schema or code."
     >
       <div className="grid items-center md:grid-cols-[1fr_auto_1.1fr_auto_1.3fr]">
-        <Box>One unit of campaign work</Box>
+        <Box>One unit of work</Box>
         <Arrow />
         <div className="space-y-2">
           <Box>Worker A processes it</Box>
@@ -136,7 +136,7 @@ function DuplicateRows() {
         </div>
       </div>
       <p className="mt-5 text-[0.86rem]">
-        Counted twice. Across 1,000+ campaigns, that added up to a ~5% overstatement.
+        Counted twice. At scale, that added up to a ~5% overstatement in reported results.
       </p>
     </Frame>
   );

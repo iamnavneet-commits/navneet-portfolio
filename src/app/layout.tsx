@@ -41,7 +41,7 @@ const pageUrl = `${siteUrl}/`;
 
 const title = `${person.name}, Technical Account Manager and Customer Success Engineer`;
 const description =
-  "Technical Account Manager in Dubai. Production troubleshooting, root-cause analysis, API and SDK integrations, and incident ownership for enterprise customers.";
+  "Technical Account Manager in Dubai, open to Technical Account Manager, Solutions Engineer, Customer Success Manager and Customer Success Engineer roles. Incident ownership, root-cause analysis, API and SDK integrations, and application security.";
 
 export const metadata: Metadata = {
   metadataBase,
@@ -51,6 +51,8 @@ export const metadata: Metadata = {
   authors: [{ name: person.name, url: person.linkedin }],
   keywords: [
     "Technical Account Management",
+    "Solutions Engineering",
+    "Customer Success Management",
     "Customer Success Engineering",
     "Enterprise Technical Support",
     "API Integrations",

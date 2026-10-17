@@ -1,5 +1,6 @@
 import { contact, person } from "@/content/profile";
 import { CopyEmail } from "./CopyEmail";
+import { CvLink } from "./CvLink";
 import { CurrentYear } from "./CurrentYear";
 import { SignalMark } from "./SignalMark";
 
@@ -30,10 +31,22 @@ export function Contact() {
                   Send me an email
                 </a>
                 <CopyEmail email={person.email} />
+                <CvLink tone="night" />
               </div>
             </div>
 
             <dl className="space-y-7 lg:col-span-4 lg:col-start-9">
+              <div>
+                <dt className="text-[0.85rem] text-night-soft">Phone</dt>
+                <dd className="mt-1.5">
+                  <a
+                    href={person.phoneHref}
+                    className="underline decoration-night-rule underline-offset-4 hover:text-cobalt-on-night hover:decoration-cobalt-on-night"
+                  >
+                    {person.phone}
+                  </a>
+                </dd>
+              </div>
               <div>
                 <dt className="text-[0.85rem] text-night-soft">LinkedIn</dt>
                 <dd className="mt-1.5">

@@ -52,33 +52,30 @@ export function Toolkit() {
         </div>
 
         {/* Tool groups. Hovering a group lights up where it fits above; the same
-            information is always written out in "Used in", so nothing depends on hover. */}
-        <ul className="mt-14 border-t border-ink" onMouseLeave={() => setFocus(null)}>
+            information is written out in "Used in", so nothing depends on hover. */}
+        <ul
+          className="mt-12 grid gap-x-8 border-t border-ink md:grid-cols-2 lg:grid-cols-3"
+          onMouseLeave={() => setFocus(null)}
+        >
           {toolGroups.map((group, i) => (
             <li
               key={group.name}
               onMouseEnter={() => setFocus(i)}
-              className={`grid gap-4 border-b border-rule py-8 transition-colors md:grid-cols-12 md:gap-8 ${
-                focus === i ? "bg-paper-deep/50" : ""
-              }`}
+              className={`border-b border-rule py-6 transition-colors ${focus === i ? "bg-paper-deep/50" : ""}`}
             >
-              <div className="md:col-span-4 md:pl-1">
-                <h3 className="type-title !text-[1.45rem]">{group.name}</h3>
-                <p className="mt-2 text-[0.95rem] text-ink-soft">{group.solves}</p>
-              </div>
-              <ul className="flex flex-wrap content-start gap-1.5 md:col-span-5">
-                {group.tools.map((tool) => (
-                  <li key={tool} className="rounded-full border border-rule-strong bg-paper px-2.5 py-1 font-mono text-[0.78rem]">
+              <h3 className="font-serif text-[1.25rem] leading-snug tracking-[-0.005em] [font-variation-settings:'opsz'_24]">
+                {group.name}
+              </h3>
+              <p className="mt-1.5 text-[0.92rem] text-ink-soft">{group.solves}</p>
+              <ul className="mt-3 font-mono text-[0.78rem] leading-relaxed">
+                {group.tools.map((tool, t) => (
+                  <li key={tool} className="inline">
                     {tool}
+                    {t < group.tools.length - 1 && <span className="text-ink-muted">, </span>}
                   </li>
                 ))}
               </ul>
-              <div className="md:col-span-3">
-                <p className="text-[0.8rem] text-ink-muted">Used in</p>
-                <p className="mt-1 text-[0.88rem] leading-snug">
-                  {group.stages.join(", ")}
-                </p>
-              </div>
+              <p className="mt-3 text-[0.8rem] text-ink-muted">Used in: {group.stages.join(", ")}</p>
             </li>
           ))}
         </ul>

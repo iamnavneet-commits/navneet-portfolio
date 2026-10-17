@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { nav, person } from "@/content/profile";
 import { SignalMark } from "./SignalMark";
+import { CvLink } from "./CvLink";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -92,6 +93,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <span className="mr-2 hidden text-[0.92rem] xl:inline">
+            <CvLink variant="link" />
+          </span>
           <a href="#contact" className="btn btn-secondary hidden !min-h-10 !px-4 text-[0.92rem] sm:inline-flex">
             Let’s connect
           </a>
@@ -137,6 +141,7 @@ export function SiteHeader() {
             ))}
           </ul>
           <div className="mt-10 space-y-2 text-ink-soft">
+            <CvLink variant="link" />
             <a className="link block" href={`mailto:${person.email}`}>
               {person.email}
             </a>
